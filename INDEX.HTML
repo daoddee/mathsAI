@@ -1,1 +1,362 @@
+diff --git a/INDEX.HTML b/INDEX.HTML
+index 8b137891791fe96927ad78e64b0aad7bded08bdc..e33b445b753f1539eba06c9bacd52f1d0f765663 100644
+--- a/INDEX.HTML
++++ b/INDEX.HTML
+@@ -1 +1,356 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++  <meta charset="UTF-8" />
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <title>MVP Math Learning App Project Plan</title>
++  <style>
++    body {
++      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
++      line-height: 1.6;
++      margin: 0;
++      padding: 0;
++      background-color: #f5f7fb;
++      color: #1f2933;
++    }
+ 
++    header {
++      background: linear-gradient(135deg, #2563eb, #1d4ed8);
++      color: #fff;
++      padding: 3rem 1rem;
++      text-align: center;
++    }
++
++    header h1 {
++      margin: 0;
++      font-size: 2.5rem;
++    }
++
++    header p {
++      margin: 0.5rem 0 0;
++      font-size: 1.125rem;
++      max-width: 720px;
++      margin-left: auto;
++      margin-right: auto;
++    }
++
++    main {
++      max-width: 960px;
++      margin: -3rem auto 4rem;
++      padding: 0 1.5rem;
++    }
++
++    section {
++      background: #fff;
++      border-radius: 1rem;
++      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
++      padding: 2rem;
++      margin-bottom: 2rem;
++    }
++
++    h2 {
++      font-size: 1.75rem;
++      margin-top: 0;
++      color: #1d4ed8;
++    }
++
++    h3 {
++      font-size: 1.25rem;
++      margin-top: 1.5rem;
++      color: #0f172a;
++    }
++
++    ul {
++      margin: 0;
++      padding-left: 1.25rem;
++    }
++
++    li + li {
++      margin-top: 0.5rem;
++    }
++
++    code, pre {
++      background-color: #f1f5f9;
++      padding: 0.25rem 0.5rem;
++      border-radius: 0.375rem;
++      font-family: "Fira Code", "Source Code Pro", monospace;
++    }
++
++    pre {
++      overflow-x: auto;
++      padding: 1rem;
++    }
++
++    .note {
++      background-color: #eff6ff;
++      border-left: 4px solid #2563eb;
++      padding: 1rem;
++      border-radius: 0.75rem;
++      margin-top: 1.5rem;
++    }
++
++    footer {
++      text-align: center;
++      color: #475569;
++      padding: 2rem 1rem 3rem;
++      font-size: 0.875rem;
++    }
++
++    @media (max-width: 640px) {
++      header h1 {
++        font-size: 2rem;
++      }
++
++      section {
++        padding: 1.5rem;
++      }
++    }
++  </style>
++</head>
++<body>
++  <header>
++    <h1>MVP Math Learning App Project Plan</h1>
++    <p>A structured blueprint for building a low-cost, high-performance adaptive maths tutoring MVP with AI-driven feedback.</p>
++  </header>
++  <main>
++    <section id="tech-stack">
++      <h2>1. Recommended Tech Stack</h2>
++      <p>The MVP leverages a modern, cost-effective JavaScript stack with free-tier hosting and managed services:</p>
++      <h3>Frontend</h3>
++      <ul>
++        <li><strong>Next.js (React + TypeScript)</strong> for a single-page experience with SSR/SSG, plus built-in API routes.</li>
++        <li><strong>Tailwind CSS</strong> for rapid, utility-first styling and minimal bundle overhead.</li>
++        <li>Supplementary libraries like <strong>MathJax/KaTeX</strong> for rendering equations and <strong>Chart.js/Recharts</strong> for visualising progress.</li>
++      </ul>
++      <h3>Backend</h3>
++      <ul>
++        <li>Next.js API routes running on Node.js/TypeScript to keep frontend and backend unified.</li>
++        <li>Optional migration path to Express/Railway if separation becomes necessary.</li>
++      </ul>
++      <h3>Database &amp; Auth</h3>
++      <ul>
++        <li><strong>Supabase (PostgreSQL)</strong> for relational data, auth, and storage with generous free limits.</li>
++        <li>Supabase Auth supporting email/password and passwordless magic links out-of-the-box.</li>
++      </ul>
++      <h3>AI Integration</h3>
++      <ul>
++        <li><strong>Anthropic Claude</strong> (Claude Instant for cost efficiency) via the official Node SDK to deliver step-by-step explanations, hints, and feedback.</li>
++      </ul>
++      <h3>Hosting &amp; DevOps</h3>
++      <ul>
++        <li><strong>Vercel Hobby tier</strong> for deploying the Next.js app and API routes with zero DevOps overhead.</li>
++        <li>Secrets managed via environment variables both locally (<code>.env.local</code>) and in Vercel.</li>
++        <li>Monitoring through optional free tools like Vercel Analytics, Sentry, or GitHub Actions.</li>
++      </ul>
++      <p>All components are open-source or have free tiers, supporting a "weekend-to-production" velocity while remaining scalable.</p>
++    </section>
++
++    <section id="structure">
++      <h2>2. Codebase Folder Structure</h2>
++      <p>Using the Next.js 13 App Router convention for clarity and future growth:</p>
++      <pre><code>math-tutor-mvp/
++├─ .env.local
++├─ package.json
++├─ next.config.js
++├─ tailwind.config.js
++├─ supabase/
++│  └─ seed_quadratics.sql
++├─ lib/
++│  ├─ supabaseClient.ts
++│  └─ aiClient.ts
++├─ app/
++│  ├─ layout.tsx
++│  ├─ page.tsx
++│  ├─ login/
++│  │  └─ page.tsx
++│  ├─ practice/
++│  │  ├─ page.tsx
++│  │  └─ [questionId]/page.tsx
++│  ├─ test/
++│  │  ├─ page.tsx
++│  │  └─ session/[id]/page.tsx
++│  ├─ review/
++│  │  └─ page.tsx
++│  └─ api/
++│     ├─ auth/
++│     │  ├─ register.ts
++│     │  └─ login.ts
++│     ├─ practice/
++│     │  ├─ next-question.ts
++│     │  └─ submit-answer.ts
++│     ├─ test/
++│     │  ├─ start.ts
++│     │  └─ submit.ts
++│     └─ progress.ts
++├─ components/
++│  ├─ QuestionCard.tsx
++│  ├─ AnswerOptions.tsx
++│  ├─ Timer.tsx
++│  └─ ProgressChart.tsx
++└─ utils/
++   ├─ adaptiveAlgo.ts
++   ├─ feedbackGenerator.ts
++   └─ auth.ts</code></pre>
++      <div class="note">
++        <strong>Why this structure?</strong> Clear separation of concerns, scalable routing, reusable components, and version-controlled Supabase migrations create a maintainable foundation that avoids ad-hoc growth.
++      </div>
++    </section>
++
++    <section id="rest-api">
++      <h2>3. REST API Endpoint Plan</h2>
++      <p>RESTful route handlers within <code>app/api</code> cover authentication, practice, test, and progress tracking:</p>
++      <h3>Auth</h3>
++      <ul>
++        <li><code>POST /api/auth/register</code> – register users via Supabase Auth.</li>
++        <li><code>POST /api/auth/login</code> – issue Supabase JWTs (optional if using Supabase client-side auth).</li>
++      </ul>
++      <h3>Practice Mode</h3>
++      <ul>
++        <li><code>GET /api/practice/next-question?topic=&lt;id&gt;</code> – adaptive question retrieval informed by user history.</li>
++        <li><code>POST /api/practice/submit-answer</code> – grade answers, persist attempts, and return Claude-powered explanations.</li>
++      </ul>
++      <h3>Test Mode</h3>
++      <ul>
++        <li><code>POST /api/test/start</code> – create exam sessions, assemble question sets, and return timing.</li>
++        <li><code>POST /api/test/submit</code> – evaluate submissions, store results, and provide breakdowns.</li>
++      </ul>
++      <h3>Progress &amp; Content</h3>
++      <ul>
++        <li><code>GET /api/progress</code> – deliver topic-level mastery metrics and recommendations.</li>
++        <li><code>GET /api/content/topics</code> and <code>/api/content/questions</code> (optional) – surface taxonomy and seed data.</li>
++      </ul>
++      <p>All protected routes validate Supabase JWTs, ensuring users only access their own records via Row-Level Security.</p>
++    </section>
++
++    <section id="database">
++      <h2>4. Database Schema (PostgreSQL)</h2>
++      <p>Core relational tables support users, content, attempts, and assessments:</p>
++      <ul>
++        <li><strong>users</strong> – Supabase-managed identities (optionally extended with profiles).</li>
++        <li><strong>topics</strong> – hierarchical maths concepts.</li>
++        <li><strong>questions</strong> – question bank with difficulty, options, and canonical answers.</li>
++        <li><strong>attempts</strong> – log of all responses (practice or test) including correctness and timing.</li>
++        <li><strong>exam_sessions</strong> – timed mock exam sessions with aggregated scores.</li>
++        <li><strong>mastery</strong> (optional) – cached proficiency metrics per user/topic for quick lookup.</li>
++      </ul>
++      <p>Sample DDL for key tables:</p>
++      <pre><code>CREATE TABLE topics (
++  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
++  name TEXT NOT NULL,
++  parent_topic_id UUID REFERENCES topics(id),
++  created_at TIMESTAMPTZ DEFAULT now()
++);
++
++CREATE TABLE questions (
++  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
++  topic_id UUID REFERENCES topics(id),
++  question_text TEXT NOT NULL,
++  answer_options JSONB,
++  correct_answer TEXT NOT NULL,
++  difficulty INT,
++  created_at TIMESTAMPTZ DEFAULT now()
++);
++
++CREATE TABLE attempts (
++  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
++  user_id UUID REFERENCES auth.users(id),
++  question_id UUID REFERENCES questions(id),
++  exam_id UUID REFERENCES exam_sessions(id),
++  given_answer TEXT,
++  correct BOOLEAN,
++  time_taken INT,
++  answered_at TIMESTAMPTZ DEFAULT now()
++);</code></pre>
++      <p>Indexes on <code>attempts.user_id</code> and <code>questions.topic_id</code> keep adaptive queries efficient.</p>
++    </section>
++
++    <section id="claude">
++      <h2>5. Claude API Integration &amp; Prompt Design</h2>
++      <p>Server-side Claude calls power explanations, hints, and feedback:</p>
++      <ul>
++        <li>Centralised client in <code>lib/aiClient.ts</code> using the official SDK and environment key management.</li>
++        <li>Claude Instant handles short tutoring responses; larger models reserved for complex reviews.</li>
++        <li>Prompts encourage Socratic guidance, positive reinforcement, and error analysis.</li>
++        <li>Optional validation: compare AI-derived answers to canonical solutions before returning to users.</li>
++      </ul>
++      <p>Example prompt:</p>
++      <pre><code>You are a supportive maths tutor.
++Question: "x² - 5x + 6 = 0".
++Student answer: "x = 1 or x = 6" (incorrect).
++Explain the correct solution step-by-step, highlight the mistake, and finish with a guiding question.</code></pre>
++      <p>This approach keeps API keys secure, controls usage, and delivers personalised tutoring at minimal cost.</p>
++    </section>
++
++    <section id="auth">
++      <h2>6. Authentication Strategy</h2>
++      <ul>
++        <li><strong>Supabase Auth</strong> provides email/password and magic-link flows with minimal setup.</li>
++        <li>JWT sessions managed by the Supabase client; protected API routes verify tokens server-side.</li>
++        <li>Email verification, password reset, and optional rate limiting enhance security.</li>
++        <li>Future role support (students, teachers, admins) achievable via Supabase policies and role flags.</li>
++      </ul>
++      <p>Users enjoy frictionless onboarding while data remains protected through RLS and HTTPS-only access.</p>
++    </section>
++
++    <section id="workflows">
++      <h2>7. Core User Workflows</h2>
++      <h3>Practice Mode</h3>
++      <ul>
++        <li>Topic selection (manual or recommended) informed by mastery gaps.</li>
++        <li>Adaptive question loop: fetch, answer, receive instant AI feedback, repeat.</li>
++        <li>Attempts stored for continuous learner-model updates.</li>
++      </ul>
++      <h3>Test Mode</h3>
++      <ul>
++        <li>Create timed mock exams with configurable topics or past-paper presets.</li>
++        <li>Client-side timer with server verification; submissions graded on completion.</li>
++        <li>Post-exam review includes score breakdowns and optional AI explanations per question.</li>
++      </ul>
++      <h3>Review Mode</h3>
++      <ul>
++        <li>Dashboard summarising mastery, recent activity, and past exams.</li>
++        <li>Drill-down into mistakes, with shortcuts to targeted practice.</li>
++        <li>Future enhancements: streaks, spaced repetition, teacher oversight.</li>
++      </ul>
++    </section>
++
++    <section id="content">
++      <h2>8. Initial Seed Content Strategy</h2>
++      <p>Focus on <strong>Quadratic Equations</strong> for launch:</p>
++      <ul>
++        <li>Create ~20 diverse questions covering factoring, quadratic formula, graphs, and word problems.</li>
++        <li>Tag each with difficulty levels and optional subtopic metadata.</li>
++        <li>Source material from self-authored items, DeepMind Mathematics Dataset outputs, or AI-assisted generation with manual verification.</li>
++        <li>Store hints and solutions for each question to support feedback and hint buttons.</li>
++      </ul>
++      <p>Once validated, expand incrementally to additional GCSE and A-Level topics using the same pipeline.</p>
++    </section>
++
++    <section id="deployment">
++      <h2>9. Deployment Strategy</h2>
++      <ul>
++        <li><strong>Vercel</strong> for hosting Next.js frontend and API with CI/CD from GitHub.</li>
++        <li><strong>Supabase</strong> for managed Postgres, Auth, and backups (EU region to match target students).</li>
++        <li>Secrets and environment variables configured in Vercel dashboard.</li>
++        <li>Optional observability via Vercel Analytics, Sentry, and health-check endpoints.</li>
++        <li>Caching AI explanations to control Claude usage as traffic grows.</li>
++      </ul>
++      <p>Deployment steps: connect repo &rarr; configure env vars &rarr; push &rarr; run Supabase migrations &rarr; seed content &rarr; smoke-test production.</p>
++    </section>
++
++    <section id="scaling">
++      <h2>10. Future Scaling &amp; Modularity</h2>
++      <ul>
++        <li>Scale vertically (Supabase plans, Vercel tiers) or introduce caching/queueing as usage increases.</li>
++        <li>Modular code enables swapping adaptive algorithms or AI providers without touching UI flows.</li>
++        <li>Prepare for microservices, teacher roles, mobile clients, or LMS integrations when needed.</li>
++        <li>Plan for advanced features: spaced repetition, richer analytics, AI-generated content vetting.</li>
++      </ul>
++      <p>The MVP remains lean yet architected for long-term evolution into a comprehensive adaptive learning platform.</p>
++    </section>
++  </main>
++  <footer>
++    &copy; 2024 Maths AI MVP Plan. Built for rapid, cost-effective delivery of personalised maths tutoring.
++  </footer>
++</body>
++</html>
 
